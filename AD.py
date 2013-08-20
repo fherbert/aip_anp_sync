@@ -12,4 +12,3 @@ class ad_asset:
       self.filename = filename
       self.url = url
       self.md5 = md5
-
