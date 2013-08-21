@@ -6,6 +6,7 @@ import re
 AIPURL = "http://www.aip.net.nz/NavWalk.aspx?section=CHARTS"
 response = urllib2.urlopen(AIPURL)
 
+IFR_Keywords = ['VOR', 'RNAV', 'Standard Route Clearances', 'SID', 'ILS', 'Visual Arrivals']
 aerodromes=[]
 
 if response.code != 200:
