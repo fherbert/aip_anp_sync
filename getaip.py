@@ -49,11 +49,13 @@ for aerodrome in aerodromes:
                print "Error downloading file %s" % asset.url
 
 
-print """ To sync with Air Nav Pro, start web dav server on sir nav pro, mount web dav share
+print """ To sync with Air Nav Pro, start web dav server on Air Nav Pro, mount web dav share
 and run:
 
-rsync -av --checksum --delete . /Volumes/{WEBDAVMOUNT}/Documents/Airport\ charts/
+rsync -av --checksum --delete aip/ /Volumes/{WEBDAVMOUNT}/Documents/Airport\ charts/
 
 where {WEBDAVMOUNT} is the address of the webdav server (air nav pro)
+
+You will need to reindex document in Air Nav Pro, to update the changes
 """
 
