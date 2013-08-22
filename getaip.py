@@ -1,3 +1,4 @@
+#!/Library/Frameworks/Python.framework/Versions/2.7/bin/python
 import urllib2
 import sys
 from AD import *
