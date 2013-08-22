@@ -46,3 +46,13 @@ for aerodrome in aerodromes:
                fh.close()
             else:
                print "Error downloading file %s" % asset.url
+
+
+print """ To sync with Air Nav Pro, start web dav server on sir nav pro, mount web dav share
+and run:
+
+rsync -av --checksum --delete . /Volumes/{WEBDAVMOUNT}/Documents/Airport\ charts/
+
+where {WEBDAVMOUNT} is the address of the webdav server (air nav pro)
+"""
+
