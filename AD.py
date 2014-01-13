@@ -1,6 +1,21 @@
 # AIP Aerodrome class
 import re
-import urllib2
+import urllib, urllib2, cookielib
+
+cj = cookielib.CookieJar()
+opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+response = opener.open('http://www.aip.net.nz/Default.aspx')
+# get __VIEWSTATE and __EVENTVALIDATION values to submit to form
+for line in response:
+   if '__VIEWSTATE' in line:
+      m = re.search('value="(.*)"(.*)', line)
+      viewstate = m.group(1)
+   elif '__EVENTVALIDATION' in line:
+      m = re.search('value="(.*)"(.*)', line)
+      eventvalidation = m.group(1)
+
+login_data = urllib.urlencode({'btnAgree': '  I Agree  ', '__VIEWSTATE': viewstate, '__EVENTVALIDATION': eventvalidation})
+opener.open('http://www.aip.net.nz/Default.aspx', login_data)
 
 AIPBASEURL = "http://www.aip.net.nz/"
 
@@ -22,7 +37,8 @@ def add_multiple_ad(line):
    print "Creating aerodrome with name %s, %s" % (m.group(2).strip().replace("/", "-"), m.group(4))
    aerodrome = AD(name=m.group(2).strip().replace("/", "-"), ICAO_code=m.group(4))
    # now we need to get the list of pdf's
-   response = urllib2.urlopen(AIPBASEURL + m.group(1).replace("&amp;", "&"))
+   #response = urllib2.urlopen(AIPBASEURL + m.group(1).replace("&amp;", "&"))
+   response = opener.open(AIPBASEURL + m.group(1).replace("&amp;", "&"))
    print "Getting all assets for %s at %s" % (aerodrome.name, AIPBASEURL + m.group(1).replace("&amp;", "&"))
    for line in response:
       if 'pdf' in line:
