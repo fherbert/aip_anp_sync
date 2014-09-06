@@ -37,10 +37,9 @@ if response.code != 200:
 print "Successfully connected to AIP site"
 
 for line in response:
-   if 'pdf' in line:
-      if 'NZ' not in line:
-         # skip Aerodromes that don't have an ICAO code, we may need to patch this to have a manual override list
-         aerodromes.append(add_single_ad(line.strip()))
+   if 'pdf' in line and 'Pukaki' not in line:
+      # skip Pukaki aerodrome, it doesn't have the same format as other aerodromes on the page (no ICAO code in brackets)
+      aerodromes.append(add_single_ad(line.strip()))
    if 'section=CHARTS&amp' in line:
       aerodromes.append(add_multiple_ad(line.strip()))
 
